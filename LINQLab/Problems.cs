@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using LINQLab.Models;
 using System.Collections.Generic;
 using System.Data;
+using System.Configuration;
 
 namespace LINQLab
 {
@@ -23,14 +24,14 @@ namespace LINQLab
             //RDemoTwo();
             //RProblemTwo();
             //RProblemThree();
-            //RProblemFour();
+            RProblemFour();
             //RProblemFive();
 
             //// <><><><><><><><> R Actions (Read) with Foreign Keys <><><><><><><><><>
             //RDemoThree();
             //RProblemSix();
             //RProblemSeven();
-            //RProblemEight();
+            //RProblemEight(); 
 
             //// <><><><><><><><> CUD (Create, Update, Delete) Actions <><><><><><><><><>
 
@@ -54,7 +55,7 @@ namespace LINQLab
         // <><><><><><><><> R Actions (Read) <><><><><><><><><>
         private void RDemoOne()
         {
-            // This LINQ query will return all the users from the User table.
+            //// This LINQ query will return all the users from the User table.
             var users = _context.Users.ToList();
 
             Console.WriteLine("RDemoOne: Emails of All users");
@@ -68,7 +69,8 @@ namespace LINQLab
         private void RProblemOne()
         {
             // Print the COUNT of all the users from the User table.
-
+            var userCount = _context.Users.Count();
+            Console.WriteLine(userCount);
         }
 
         /*
@@ -91,6 +93,12 @@ namespace LINQLab
         {
             // Write a LINQ query that gets each product whose price is less than or equal to $100.
             // Print the name and price of all products
+            var products100OrLess = _context.Products.Where(p => p.Price <= 100);
+              foreach (Product product in products100OrLess) 
+            {
+                Console.WriteLine($"{product.Name} - ${product.Price}");
+            }
+            //Console.WriteLine(products100OrLess.Name);
 
         }
 
@@ -109,6 +117,12 @@ namespace LINQLab
 
         public void RProblemThree()
         {
+            var sProducts = _context.Products.Where(p => p.Name.Contains("s"));
+       
+            foreach (Product product in sProducts)
+            {
+                Console.WriteLine($"{product.Name}");
+            }
             // Write a LINQ query that gets each product whose name that CONTAINS an "s".
         }
         /*
